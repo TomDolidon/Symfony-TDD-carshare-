@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -42,6 +44,22 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $lastName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Path", mappedBy="driver")
+     */
+    private $ownedPath;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Path", mappedBy="passengers")
+     */
+    private $participatedPaths;
+
+    public function __construct()
+    {
+        $this->ownedPath = new ArrayCollection();
+        $this->participatedPaths = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -144,4 +162,64 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Path[]
+     */
+    public function getOwnedPath(): Collection
+    {
+        return $this->ownedPath;
+    }
+
+    public function addPath(Path $path): self
+    {
+        if (!$this->ownedPath->contains($path)) {
+            $this->ownedPath[] = $path;
+            $path->setDriver($this);
+        }
+
+        return $this;
+    }
+
+    public function removePath(Path $path): self
+    {
+        if ($this->ownedPath->contains($path)) {
+            $this->ownedPath->removeElement($path);
+            // set the owning side to null (unless already changed)
+            if ($path->getDriver() === $this) {
+                $path->setDriver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Path[]
+     */
+    public function getParticipatedPaths(): Collection
+    {
+        return $this->participatedPaths;
+    }
+
+    public function addParticipatedPath(Path $participatedPath): self
+    {
+        if (!$this->participatedPaths->contains($participatedPath)) {
+            $this->participatedPaths[] = $participatedPath;
+            $participatedPath->addPassenger($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipatedPath(Path $participatedPath): self
+    {
+        if ($this->participatedPaths->contains($participatedPath)) {
+            $this->participatedPaths->removeElement($participatedPath);
+            $participatedPath->removePassenger($this);
+        }
+
+        return $this;
+    }
+    
 }
