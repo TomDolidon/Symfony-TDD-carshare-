@@ -28,10 +28,10 @@
                 <td>{{ path.leftSeats }}</td>
 
                 <td>
-                    {% if not app.user %}
+                    {% if app.user %}
                         <a href="{{ path('path_reserv', {'id': path.id}) }}">réserver</a>
                     {% else %}
-                        <a class="disabled" href="*">réserver</a>
+                        <a href="{{ path('path_reserv', {'id': path.id}) }}">réserver</a>
                     {% endif %}
                 </td>
             </tr>

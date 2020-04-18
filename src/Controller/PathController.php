@@ -110,6 +110,6 @@ class PathController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('path_index');
+        return $this->redirectToRoute('account');
     }
 }

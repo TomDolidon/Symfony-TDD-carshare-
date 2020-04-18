@@ -27,8 +27,7 @@
 
                 <td>
                     <a href="{{ path('path_edit', {'id': path.id}) }}">Modifier</a>
-                    <a href="{{ path('path_delete', {'id': path.id}) }}">Supprimer</a>
-
+                        {{ include('path/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
