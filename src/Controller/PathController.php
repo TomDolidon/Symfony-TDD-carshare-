@@ -66,6 +66,27 @@ class PathController extends AbstractController
         return $this->redirectToRoute('path_index');
     }
 
+    /**
+     * @Route("/{id}/cancelReserv", name="path_cancelReserv", methods={"GET","POST"})
+     */
+    public function cancelReserv(Path $path): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user  = $this->getUser();
+        $user->removeParticipatedPath($path);
+
+        $path->setLeftSeats($path->getLeftSeats() + 1);
+        $path->removePassenger($user);
+
+        $entityManager->persist($path);
+        $entityManager->persist($user);
+
+        $entityManager->flush();
+        return $this->redirectToRoute('path_index');
+    }
+
 
 
 

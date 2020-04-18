@@ -34,9 +34,13 @@
                         {% if app.user %}
                            {% if app.user == path.driver %}
                                 <a href="{{ path('path_edit', {'id': path.id}) }}">Modifier</a>
-                           {% else %}
+                           {% elseif app.user in path.passengers %}
+                               <a href="{{ path('path_cancelReserv', {'id': path.id}) }}">Annuler cette réservation</a>
+                            {% else %}
                                <a href="{{ path('path_reserv', {'id': path.id}) }}">Réserver</a>
                             {% endif %}
+
+
                         {% else %}
                                <a href="{{path('app_login')}}">Se connecter</a>
                         {% endif %}
