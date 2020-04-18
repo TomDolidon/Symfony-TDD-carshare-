@@ -17,14 +17,14 @@ class PathController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          //  $entityManager = $this->getDoctrine()->getManager();
-           // $entityManager->persist($request);
-           // $entityManager->flush();
+           $entityManager = $this->getDoctrine()->getManager();
+           $entityManager->persist($request);
+           $entityManager->flush();
 
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('categorie/new.html.twig', [
+        return $this->render('path/new.html.twig', [
             'path' => $path,
             'form' => $form->createView(),
         ]);
