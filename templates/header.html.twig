@@ -27,15 +27,15 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                     {% if not app.user %}
-                        <a class="dropdown-item" href="{{path('home')}}">Se connecter</a>
-                        <a class="dropdown-item" href="{{path('home')}}">Inscription</a>
+                        <a class="dropdown-item" href="{{path('app_login')}}">Se connecter</a>
+                        <a class="dropdown-item" href="{{path('register')}}">Inscription</a>
                     {% endif %}
 
 
                     {% if app.user %}
                         <a class="dropdown-item" href="{{ path('home') }}">mon compte</a>
                         <a class="dropdown-item" href="{{ path('home') }}"> oui oui</a>
-                        <a class="dropdown-item" href="{{path('home')}}">Se déconnecter</a>
+                        <a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a>
                     {% endif %}
 
                 </div>

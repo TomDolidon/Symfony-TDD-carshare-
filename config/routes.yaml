@@ -7,3 +7,6 @@ path_new:
 path_index:
     path: /path/index
     controller: App\Controller\PathController::index
+register:
+    path: /user/new
+    controller: App\Controller\UserController::new
