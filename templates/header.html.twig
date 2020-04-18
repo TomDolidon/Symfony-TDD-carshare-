@@ -15,6 +15,12 @@
             </li>
             {% endif %}
 
+            {% if is_granted('ROLE_CLIENT') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('account') }}">Mes trajets</a>
+                </li>
+            {% endif %}
+
             {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('location_new') }}">Nouvelle destination</a>
