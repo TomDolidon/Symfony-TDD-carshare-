@@ -20,6 +20,7 @@
         <tbody>
         {% for path in paths %}
 
+
             {% if path.leftSeats > 0 %}
                 <tr>
                     <td>{{ path.id }}</td>
@@ -37,7 +38,7 @@
                                <a href="{{ path('path_reserv', {'id': path.id}) }}">Réserver</a>
                             {% endif %}
                         {% else %}
-                            <a class="disabled" href="*">réserver</a>
+                               <a href="{{path('app_login')}}">Se connecter</a>
                         {% endif %}
                     </td>
                 </tr>
