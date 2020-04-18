@@ -43,6 +43,10 @@ class Location
      */
     private $endPaths;
 
+    public function __toString() {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->startPaths = new ArrayCollection();

@@ -31,6 +31,13 @@ final class Version20200418123911 extends AbstractMigration
         $this->addSql('ALTER TABLE path ADD CONSTRAINT FK_B548B0FC3423909 FOREIGN KEY (driver_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE path_user ADD CONSTRAINT FK_E0FF5F1ED96C566B FOREIGN KEY (path_id) REFERENCES path (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE path_user ADD CONSTRAINT FK_E0FF5F1EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
+
+        $this->addSql('INSERT INTO user VALUES (1,"Fruits", "images/fruits.jpg", "De la passion ou de ton imagination" )');
+
+        $this->addSql('INSERT INTO location VALUES (1,"Fruits", "images/fruits.jpg", "De la passion ou de ton imagination" )');
+
+        $this->addSql('INSERT INTO path VALUES (1,"Fruits", "images/fruits.jpg", "De la passion ou de ton imagination" )');
+
     }
 
     public function down(Schema $schema) : void

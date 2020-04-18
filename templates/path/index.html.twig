@@ -1,30 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Trajets{% endblock %}
+{% block title %}Path{% endblock %}
 
-{% block content %}
+{% block body %}
+    <h1>Liste des trajets :</h1>
 
-    <h1> Les trajets disponibles : </h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Lieu de départ</th>
+                <th>Lieu d'arrivée</th>
+                <th>Heure de départ</th>
+                <th>Conducteur</th>
+                <th>Places restantes</th>
 
+            </tr>
+        </thead>
+        <tbody>
+        {% for path in paths %}
+            <tr>
+                <td>{{ path.id }}</td>
+                <td>{{ path.startLocation.name }} </td>
+                <td>{{ path.endLocation.name }}</td>
+                <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ path.driver.firstName }}</td>
+                <td>{{ path.seats }}</td>
 
-    <div class="row">
-
-        {% for path in paths  %}
-
-            <div class="card" style="width: 18rem;">
-
-                <p> Lieu de départ : {{ path.startLocation.name }} </p>
-                <p> Lieu d'arrivée : {{ path.endLocation.name }} </p>
-
-                <p> Heure de départ : {{  path.startTime |date('Y-m-d') }} </p>
-
-                <p> Conducteur : {{ path.driver.firstName }} </p>
-
-                <p> Places restantes : {{ path.seats }} </p>
-                
-            </div>
-
+                <td>
+                    <a href="{{ path('path_show', {'id': path.id}) }}">show</a>
+                    <a href="{{ path('path_edit', {'id': path.id}) }}">edit</a>
+                    {% if not app.user %}
+                        <a href="*">réserver</a>
+                    {% else %}
+                        <a class="disabled" href="*">réserver</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
         {% endfor %}
-    </div>
+        </tbody>
+    </table>
 
+    <a href="{{ path('path_new') }}">Create new</a>
 {% endblock %}
