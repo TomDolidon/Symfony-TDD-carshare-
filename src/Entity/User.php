@@ -48,7 +48,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Path", mappedBy="driver")
      */
-    private $ownedPath;
+    private $ownedPaths;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Path", mappedBy="passengers")
@@ -57,7 +57,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->ownedPath = new ArrayCollection();
+        $this->ownedPaths = new ArrayCollection();
         $this->participatedPaths = new ArrayCollection();
     }
 
@@ -166,15 +166,15 @@ class User implements UserInterface
     /**
      * @return Collection|Path[]
      */
-    public function getOwnedPath(): Collection
+    public function getOwnedPaths(): Collection
     {
-        return $this->ownedPath;
+        return $this->ownedPaths;
     }
 
     public function addPath(Path $path): self
     {
-        if (!$this->ownedPath->contains($path)) {
-            $this->ownedPath[] = $path;
+        if (!$this->ownedPaths->contains($path)) {
+            $this->ownedPaths[] = $path;
             $path->setDriver($this);
         }
 
@@ -183,8 +183,8 @@ class User implements UserInterface
 
     public function removePath(Path $path): self
     {
-        if ($this->ownedPath->contains($path)) {
-            $this->ownedPath->removeElement($path);
+        if ($this->ownedPaths->contains($path)) {
+            $this->ownedPaths->removeElement($path);
             // set the owning side to null (unless already changed)
             if ($path->getDriver() === $this) {
                 $path->setDriver(null);
