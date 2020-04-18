@@ -33,15 +33,10 @@
 
 
                     {% if app.user %}
-                        <a class="dropdown-item" href="{{ path('home') }}">mon compte</a>
-                        <a class="dropdown-item" href="{{ path('home') }}"> oui oui</a>
                         <a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a>
                     {% endif %}
 
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
 
