@@ -3,7 +3,7 @@
 {% block title %}Path{% endblock %}
 
 {% block body %}
-    <h1>Liste des trajets :</h1>
+    <h1>Trajets disponibles :</h1>
 
     <table class="table">
         <thead>
@@ -28,8 +28,6 @@
                 <td>{{ path.leftSeats }}</td>
 
                 <td>
-                    <a href="{{ path('path_show', {'id': path.id}) }}">show</a>
-                    <a href="{{ path('path_edit', {'id': path.id}) }}">edit</a>
                     {% if not app.user %}
                         <a href="{{ path('path_reserv', {'id': path.id}) }}">réserver</a>
                     {% else %}

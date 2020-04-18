@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+
+    <h1>Mes trajets créés :</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Lieu de départ</th>
+                <th>Lieu d'arrivée</th>
+                <th>Heure de départ</th>
+                <th>Places restantes</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for path in app.user.ownedPath %}
+            <tr>
+                <td>{{ path.id }}</td>
+                <td>{{ path.startLocation.name }} </td>
+                <td>{{ path.endLocation.name }}</td>
+                <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ path.seats }}</td>
+
+                <td>
+                    <a href="{{ path('path_edit', {'id': path.id}) }}">Modifier</a>
+                    <a href="{{ path('path_delete', {'id': path.id}) }}">Supprimer</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun trajets créé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h1>Mes trajets réservés :</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Numéro</th>
+            <th>Lieu de départ</th>
+            <th>Lieu d'arrivée</th>
+            <th>Heure de départ</th>
+            <th>Conducteur</th>
+            <th>Places restantes</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for path in app.user.participatedPaths %}
+            <tr>
+                <td>{{ path.id }}</td>
+                <td>{{ path.startLocation.name }} </td>
+                <td>{{ path.endLocation.name }}</td>
+                <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ path.driver.firstName }}</td>
+                <td>{{ path.seats }}</td>
+
+                <td>
+                    <a>Annuler cette réservation</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun trajets réservés</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
