@@ -24,6 +24,11 @@ class Path
     private $seats;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $leftSeats;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $startTime;
@@ -143,6 +148,18 @@ class Path
         if ($this->passengers->contains($passenger)) {
             $this->passengers->removeElement($passenger);
         }
+
+        return $this;
+    }
+
+    public function getLeftSeats(): ?int
+    {
+        return $this->leftSeats;
+    }
+
+    public function setLeftSeats(?int $leftSeats): self
+    {
+        $this->leftSeats = $leftSeats;
 
         return $this;
     }

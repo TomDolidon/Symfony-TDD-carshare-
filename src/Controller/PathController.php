@@ -37,6 +37,7 @@ class PathController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $path->setDriver($this->getUser());
+            $path->setLeftSeats($path->getSeats());
             $entityManager->persist($path);
             $entityManager->flush();
 
@@ -48,6 +49,25 @@ class PathController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{id}/reserv", name="path_reserv", methods={"GET","POST"})
+     */
+    public function reserv(Path $path): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user  = $this->getUser();
+        $path->setLeftSeats($path->getLeftSeats() - 1);
+        $path->addPassenger($user);
+
+        $entityManager->persist($path);
+        $entityManager->flush();
+        return $this->redirectToRoute('path_index');
+    }
+
+
+
 
     /**
      * @Route("/{id}", name="path_show", methods={"GET"})
@@ -84,7 +104,7 @@ class PathController extends AbstractController
      */
     public function delete(Request $request, Path $path): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$path->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $path->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($path);
             $entityManager->flush();

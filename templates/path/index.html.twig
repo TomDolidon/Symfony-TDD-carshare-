@@ -25,13 +25,13 @@
                 <td>{{ path.endLocation.name }}</td>
                 <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ path.driver.firstName }}</td>
-                <td>{{ path.seats }}</td>
+                <td>{{ path.leftSeats }}</td>
 
                 <td>
                     <a href="{{ path('path_show', {'id': path.id}) }}">show</a>
                     <a href="{{ path('path_edit', {'id': path.id}) }}">edit</a>
                     {% if not app.user %}
-                        <a href="*">réserver</a>
+                        <a href="{{ path('path_reserv', {'id': path.id}) }}">réserver</a>
                     {% else %}
                         <a class="disabled" href="*">réserver</a>
                     {% endif %}
