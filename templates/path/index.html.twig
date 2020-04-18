@@ -32,9 +32,9 @@
                     <td>
                         {% if app.user %}
                            {% if app.user == path.driver %}
-                                <a href="{{ path('path_reserv', {'id': path.id}) }}">Modifier</a>
+                                <a href="{{ path('path_edit', {'id': path.id}) }}">Modifier</a>
                            {% else %}
-                               <a href="{{ path('path_edit', {'id': path.id}) }}">Réserver</a>
+                               <a href="{{ path('path_reserv', {'id': path.id}) }}">Réserver</a>
                             {% endif %}
                         {% else %}
                             <a class="disabled" href="*">réserver</a>

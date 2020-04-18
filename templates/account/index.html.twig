@@ -23,7 +23,7 @@
                 <td>{{ path.startLocation.name }} </td>
                 <td>{{ path.endLocation.name }}</td>
                 <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ path.seats }}</td>
+                <td>{{ path.leftSeats }}</td>
 
                 <td>
                     <a href="{{ path('path_edit', {'id': path.id}) }}">Modifier</a>
@@ -61,10 +61,10 @@
                 <td>{{ path.endLocation.name }}</td>
                 <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ path.driver.firstName }}</td>
-                <td>{{ path.seats }}</td>
+                <td>{{ path.leftSeats }}</td>
 
                 <td>
-                    <a>Annuler cette réservation</a>
+                    <a href="{{ path('path_cancelReserv', {'id': path.id}) }}">Annuler cette réservation</a>
                 </td>
             </tr>
         {% else %}
