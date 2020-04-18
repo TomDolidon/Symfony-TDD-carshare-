@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200418143136 extends AbstractMigration
+final class Version20200418162650 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,10 +22,10 @@ final class Version20200418143136 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE location (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, lat DOUBLE PRECISION NOT NULL, lon DOUBLE PRECISION NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE path (id INT AUTO_INCREMENT NOT NULL, start_location_id INT NOT NULL, end_location_id INT NOT NULL, driver_id INT NOT NULL, seats INT NOT NULL, start_time DATETIME NOT NULL, INDEX IDX_B548B0F5C3A313A (start_location_id), INDEX IDX_B548B0FC43C7F1 (end_location_id), INDEX IDX_B548B0FC3423909 (driver_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE path_user (path_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_E0FF5F1ED96C566B (path_id), INDEX IDX_E0FF5F1EA76ED395 (user_id), PRIMARY KEY(path_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE location (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, lat DOUBLE PRECISION NOT NULL, lon DOUBLE PRECISION NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE path (id INT AUTO_INCREMENT NOT NULL, start_location_id INT NOT NULL, end_location_id INT NOT NULL, driver_id INT NOT NULL, seats INT NOT NULL, left_seats INT DEFAULT NULL, start_time DATETIME NOT NULL, INDEX IDX_B548B0F5C3A313A (start_location_id), INDEX IDX_B548B0FC43C7F1 (end_location_id), INDEX IDX_B548B0FC3423909 (driver_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE path_user (path_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_E0FF5F1ED96C566B (path_id), INDEX IDX_E0FF5F1EA76ED395 (user_id), PRIMARY KEY(path_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE path ADD CONSTRAINT FK_B548B0F5C3A313A FOREIGN KEY (start_location_id) REFERENCES location (id)');
         $this->addSql('ALTER TABLE path ADD CONSTRAINT FK_B548B0FC43C7F1 FOREIGN KEY (end_location_id) REFERENCES location (id)');
         $this->addSql('ALTER TABLE path ADD CONSTRAINT FK_B548B0FC3423909 FOREIGN KEY (driver_id) REFERENCES user (id)');
@@ -38,14 +38,14 @@ final class Version20200418143136 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('ALTER TABLE path DROP FOREIGN KEY FK_B548B0FC3423909');
+        $this->addSql('ALTER TABLE path_user DROP FOREIGN KEY FK_E0FF5F1EA76ED395');
         $this->addSql('ALTER TABLE path DROP FOREIGN KEY FK_B548B0F5C3A313A');
         $this->addSql('ALTER TABLE path DROP FOREIGN KEY FK_B548B0FC43C7F1');
         $this->addSql('ALTER TABLE path_user DROP FOREIGN KEY FK_E0FF5F1ED96C566B');
-        $this->addSql('ALTER TABLE path DROP FOREIGN KEY FK_B548B0FC3423909');
-        $this->addSql('ALTER TABLE path_user DROP FOREIGN KEY FK_E0FF5F1EA76ED395');
+        $this->addSql('DROP TABLE user');
         $this->addSql('DROP TABLE location');
         $this->addSql('DROP TABLE path');
         $this->addSql('DROP TABLE path_user');
-        $this->addSql('DROP TABLE user');
     }
 }

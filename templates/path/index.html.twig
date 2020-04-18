@@ -19,25 +19,32 @@
         </thead>
         <tbody>
         {% for path in paths %}
-            <tr>
-                <td>{{ path.id }}</td>
-                <td>{{ path.startLocation.name }} </td>
-                <td>{{ path.endLocation.name }}</td>
-                <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ path.driver.firstName }}</td>
-                <td>{{ path.leftSeats }}</td>
 
-                <td>
-                    {% if not app.user %}
-                        <a href="{{ path('path_reserv', {'id': path.id}) }}">réserver</a>
-                    {% else %}
-                        <a class="disabled" href="*">réserver</a>
-                    {% endif %}
-                </td>
-            </tr>
+            {% if path.leftSeats > 0 %}
+                <tr>
+                    <td>{{ path.id }}</td>
+                    <td>{{ path.startLocation.name }} </td>
+                    <td>{{ path.endLocation.name }}</td>
+                    <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ path.driver.firstName }}</td>
+                    <td>{{ path.leftSeats }}</td>
+
+                    <td>
+                        {% if app.user %}
+                           {% if app.user == path.driver %}
+                                <a href="{{ path('path_reserv', {'id': path.id}) }}">Modifier</a>
+                           {% else %}
+                               <a href="{{ path('path_edit', {'id': path.id}) }}">Réserver</a>
+                            {% endif %}
+                        {% else %}
+                            <a class="disabled" href="*">réserver</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4"> Aucun trajets disponibles </td>
             </tr>
         {% endfor %}
         </tbody>
