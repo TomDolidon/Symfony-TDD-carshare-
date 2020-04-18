@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Path;
 use App\Form\PathType;
+use App\Repository\PathRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,5 +29,14 @@ class PathController extends AbstractController
             'path' => $path,
             'form' => $form->createView(),
         ]);
+    }
+
+    public function index(PathRepository $pathRepository)
+    {
+        return $this->render('path/index.html.twig',
+            [
+                'paths' => $pathRepository->findAll(),
+            ]
+        );
     }
 }

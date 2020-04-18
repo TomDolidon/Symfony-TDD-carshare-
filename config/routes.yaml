@@ -4,3 +4,6 @@ home:
 path_new:
     path: /path/new
     controller: App\Controller\PathController::new
+path_index:
+    path: /path/index
+    controller: App\Controller\PathController::index

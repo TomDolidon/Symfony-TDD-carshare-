@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trajets{% endblock %}
+
+{% block content %}
+
+    <h1> Les trajets disponibles : </h1>
+
+
+    <div class="row">
+
+        {% for path in paths  %}
+
+            <div class="card" style="width: 18rem;">
+
+                <p> Lieu de départ : {{ path.startLocation.name }} </p>
+                <p> Lieu d'arrivée : {{ path.endLocation.name }} </p>
+
+                <p> Heure de départ : {{  path.startTime |date('Y-m-d') }} </p>
+
+                <p> Conducteur : {{ path.driver.firstName }} </p>
+
+                <p> Places restantes : {{ path.seats }} </p>
+                
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}
