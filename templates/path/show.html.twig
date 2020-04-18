@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Path{% endblock %}
+
+{% block body %}
+    <h1>Path</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ path.id }}</td>
+            </tr>
+            <tr>
+                <th>Seats</th>
+                <td>{{ path.seats }}</td>
+            </tr>
+            <tr>
+                <th>StartTime</th>
+                <td>{{ path.startTime ? path.startTime|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('path_index') }}">back to list</a>
+
+    <a href="{{ path('path_edit', {'id': path.id}) }}">edit</a>
+
+    {{ include('path/_delete_form.html.twig') }}
+{% endblock %}

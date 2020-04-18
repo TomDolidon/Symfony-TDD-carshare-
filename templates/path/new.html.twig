@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-    {% block title %}Nouveau Trajet{% endblock %}
+{% block title %}New Path{% endblock %}
 
-    {% block body %}
-        <h1>Créer un nouveau trajet</h1>
+{% block body %}
+    <h1>Create new Path</h1>
 
-        {{ include('path/_form.html.twig') }}
+    {{ include('path/_form.html.twig') }}
 
-        <a href="{{ path('home') }}">retour</a>
-    {% endblock %}
+    <a href="{{ path('path_index') }}">back to list</a>
+{% endblock %}

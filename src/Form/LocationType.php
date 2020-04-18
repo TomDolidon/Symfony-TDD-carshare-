@@ -2,27 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Path;
+use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PathType extends AbstractType
+class LocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('seats')
-            ->add('startTime')
-            ->add('startLocation')
-            ->add('endLocation')
+            ->add('name')
+            ->add('lat')
+            ->add('lon')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Path::class,
+            'data_class' => Location::class,
         ]);
     }
 }

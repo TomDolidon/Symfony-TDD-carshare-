@@ -2,6 +2,12 @@
 {% block title %}DOLICAR{% endblock %}
 
 {%  block body %}
+
+    {% if app.user %}
+        <h2>Bonjour {{ app.user.firstName }} ! </h2>
+    {% endif %}
+
+
     <h1 class="center">Bienvenue chez la Dolicar Society</h1>
     <img src="{{ asset('images/home_car.jpg') }}" class="center" />
 {%  endblock %}
