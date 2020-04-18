@@ -90,7 +90,7 @@ class PathController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('path_index');
+            return $this->redirectToRoute('account');
         }
 
         return $this->render('path/edit.html.twig', [
