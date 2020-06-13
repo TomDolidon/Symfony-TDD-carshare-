@@ -160,7 +160,6 @@ class Path
     public function setLeftSeats(?int $leftSeats): self
     {
         $this->leftSeats = $leftSeats;
-
         return $this;
     }
 }
